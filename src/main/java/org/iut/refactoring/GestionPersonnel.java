@@ -8,26 +8,14 @@ public class GestionPersonnel {
     public ArrayList<Employe> employes = new ArrayList<>();
     public HashMap<String, Double> salairesEmployes = new HashMap<>();
     public ArrayList<String> logs = new ArrayList<>();
+    private final ServiceSalaire serviceSalaire = new ServiceSalaire();
 
     public void ajouteSalarie(String type, String nom, double salaireDeBase, int experience, String equipe) {
         Employe emp = new Employe(type, nom, salaireDeBase, experience, equipe);
 
         employes.add(emp);
 
-        double salaireFinal = salaireDeBase;
-        if (type.equals("DEVELOPPEUR")) {
-            salaireFinal = salaireDeBase * 1.2;
-            if (experience > 5) {
-                salaireFinal = salaireFinal * 1.15;
-            }
-        } else if (type.equals("CHEF DE PROJET")) {
-            salaireFinal = salaireDeBase * 1.5;
-            if (experience > 3) {
-                salaireFinal = salaireFinal * 1.1;
-            }
-        } else if (type.equals("STAGIAIRE")) {
-            salaireFinal = salaireDeBase * 0.6;
-        }
+        double salaireFinal = serviceSalaire.calculerSalaire(emp);
 
         salairesEmployes.put(emp.getId(), salaireFinal);
 
@@ -47,32 +35,7 @@ public class GestionPersonnel {
             return 0;
         }
 
-        String type = emp.getType();
-        double salaireDeBase = emp.getSalaireBase();
-        int experience = emp.getExperience();
-
-        double salaireFinal;
-        if (type.equals("DEVELOPPEUR")) {
-            salaireFinal = salaireDeBase * 1.2;
-            if (experience > 5) {
-                salaireFinal = salaireFinal * 1.15;
-            }
-            if (experience > 10) {
-                salaireFinal = salaireFinal * 1.05; // bonus
-            }
-        } else if (type.equals("CHEF DE PROJET")) {
-            salaireFinal = salaireDeBase * 1.5;
-            if (experience > 3) {
-                salaireFinal = salaireFinal * 1.1;
-            }
-            salaireFinal = salaireFinal + 5000; // bonus
-        } else if (type.equals("STAGIAIRE")) {
-            salaireFinal = salaireDeBase * 0.6;
-            // Pas de bonus pour les stagiaires
-        } else {
-            salaireFinal = salaireDeBase;
-        }
-        return salaireFinal;
+        return serviceSalaire.calculerSalaireAvecBonus(emp);
     }
 
     public void generationRapport(String typeRapport, String filtre) {
@@ -153,25 +116,7 @@ public class GestionPersonnel {
         }
         if (emp == null) return 0;
 
-        String type = emp.getType();
-        int experience = emp.getExperience();
-        double salaireDeBase = emp.getSalaireBase();
-
-        double bonus = 0;
-        if (type.equals("DEVELOPPEUR")) {
-            bonus = salaireDeBase * 0.1;
-            if (experience > 5) {
-                bonus = bonus * 1.5;
-            }
-        } else if (type.equals("CHEF DE PROJET")) {
-            bonus = salaireDeBase * 0.2;
-            if (experience > 3) {
-                bonus = bonus * 1.3;
-            }
-        } else if (type.equals("STAGIAIRE")) {
-            bonus = 0; // Pas de bonus
-        }
-        return bonus;
+        return serviceSalaire.calculerBonus(emp);
     }
 }
 
