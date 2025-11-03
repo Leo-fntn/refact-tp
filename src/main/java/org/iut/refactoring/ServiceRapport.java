@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ServiceRapport {
+public class ServiceRapport implements IServiceRapport {
     public String genererRapport(List<Employe> empList, Map<String, Double> salaires, String typeRapport, String filtre) {
         StringBuilder sb = new StringBuilder();
         sb.append("=== RAPPORT: ").append(typeRapport).append(" ===\n");

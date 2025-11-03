@@ -1,6 +1,6 @@
 package org.iut.refactoring;
 
-public class ServiceSalaire {
+public class ServiceSalaire implements IServiceSalaire {
     public double calculerSalaire(Employe emp){
         String type = emp.getType();
         int experience = emp.getExperience();

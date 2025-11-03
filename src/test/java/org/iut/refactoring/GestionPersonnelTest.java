@@ -12,9 +12,13 @@ class GestionPersonnelTest {
     private ByteArrayOutputStream sortieConsole;
     private PrintStream sortieOriginale;
 
+    private final IServiceRapport serviceRapport = new ServiceRapport();
+    private final IServiceLogs serviceLogs = new ServiceLogs();
+    private final IServiceSalaire serviceSalaire = new ServiceSalaire();
+
     @BeforeEach
     void setUp() {
-        gestion = new GestionPersonnel();
+        gestion = new GestionPersonnel(serviceSalaire, serviceRapport, serviceLogs);
 
         // Capture de la sortie console
         sortieOriginale = System.out;

@@ -7,9 +7,15 @@ public class GestionPersonnel {
 
     public ArrayList<Employe> employes = new ArrayList<>();
     public HashMap<String, Double> salairesEmployes = new HashMap<>();
-    private final ServiceSalaire serviceSalaire = new ServiceSalaire();
-    private final ServiceRapport serviceRapport = new ServiceRapport();
-    private final ServiceLogs serviceLogs = new ServiceLogs();
+    private final IServiceSalaire serviceSalaire;
+    private final IServiceRapport serviceRapport;
+    private final IServiceLogs serviceLogs;
+
+    public GestionPersonnel(IServiceSalaire serviceSalaire, IServiceRapport serviceRapport, IServiceLogs serviceLogs) {
+        this.serviceSalaire = serviceSalaire;
+        this.serviceRapport = serviceRapport;
+        this.serviceLogs = serviceLogs;
+    }
 
     public void ajouteSalarie(String type, String nom, double salaireDeBase, int experience, String equipe) {
         Employe emp = new Employe(type, nom, salaireDeBase, experience, equipe);

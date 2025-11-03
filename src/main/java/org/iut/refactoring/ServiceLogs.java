@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceLogs {
-    private List<String> logs = new ArrayList<>();
+public class ServiceLogs implements IServiceLogs{
+    private final List<String> logs = new ArrayList<>();
 
     public void ajouter(String message){
         String log = LocalDateTime.now() + " - " + message;

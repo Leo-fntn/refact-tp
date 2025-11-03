@@ -2,7 +2,7 @@ package org.iut.refactoring;
 
 class GestionApp {
     public static void main(String[] args) {
-        GestionPersonnel app = new GestionPersonnel();
+        GestionPersonnel app = new GestionPersonnel(new ServiceSalaire(), new ServiceRapport(), new ServiceLogs());
         
         app.ajouteSalarie("DEVELOPPEUR", "Alice", 50000, 6, "IT");
         app.ajouteSalarie("CHEF DE PROJET", "Bob", 60000, 4, "RH");
