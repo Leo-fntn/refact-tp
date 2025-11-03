@@ -1,0 +1,100 @@
+# =========================
+# IntelliJ IDEA
+# =========================
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+*.swp
+
+# =========================
+# Gradle
+# =========================
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# =========================
+# OS-specific
+# =========================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# =========================
+# Logs / Temporary files
+# =========================
+*.log
+*.tmp
+*.temp
+
+# =========================
+# Java / Kotlin
+# =========================
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+
+# =========================
+# JetBrains / IntelliJ
+# =========================
+# Avoid committing local run configs, workspace settings, etc.
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf/
+.idea/**/httpRequests/
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# =========================
+# Environment / Config
+# =========================
+.env
+*.local.properties
+
+# =========================
+# JetBrains Fleet (si utilisé)
+# =========================
+.fleet/
+
+# =========================
+# Backup / Misc
+# =========================
+*.bak
+*.old
+*.orig
+*.rej
+
+# =========================
+# Coverage / Reports
+# =========================
+coverage/
+*.exec
+*.ec
+*.test
+*.em
+
+# =========================
+# Generated sources (si applicable)
+# =========================
+generated/
