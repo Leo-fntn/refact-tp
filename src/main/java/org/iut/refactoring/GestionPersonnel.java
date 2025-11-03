@@ -7,9 +7,9 @@ public class GestionPersonnel {
 
     public ArrayList<Employe> employes = new ArrayList<>();
     public HashMap<String, Double> salairesEmployes = new HashMap<>();
-    public ArrayList<String> logs = new ArrayList<>();
     private final ServiceSalaire serviceSalaire = new ServiceSalaire();
     private final ServiceRapport serviceRapport = new ServiceRapport();
+    private final ServiceLogs serviceLogs = new ServiceLogs();
 
     public void ajouteSalarie(String type, String nom, double salaireDeBase, int experience, String equipe) {
         Employe emp = new Employe(type, nom, salaireDeBase, experience, equipe);
@@ -20,7 +20,7 @@ public class GestionPersonnel {
 
         salairesEmployes.put(emp.getId(), salaireFinal);
 
-        logs.add(LocalDateTime.now() + " - Ajout de l'employé: " + nom);
+        serviceLogs.ajouter("Ajout de l'employé: " + nom);
     }
 
     public double calculSalaire(String employeId) {
@@ -41,7 +41,7 @@ public class GestionPersonnel {
 
     public String generationRapport(String typeRapport, String filtre) {
         String rapport = serviceRapport.genererRapport(employes, salairesEmployes, typeRapport, filtre);
-        logs.add(LocalDateTime.now() + " - Rapport généré: " + typeRapport);
+        serviceLogs.ajouter("Rapport généré: " + typeRapport);
         return rapport;
     }
 
@@ -53,7 +53,7 @@ public class GestionPersonnel {
                 double nouveauSalaire = calculSalaire(employeId);
                 salairesEmployes.put(employeId, nouveauSalaire);
 
-                logs.add(LocalDateTime.now() + " - Employé promu: " + emp.getNom());
+                serviceLogs.ajouter("Employé promu: " + emp.getNom());
                 System.out.println("Employé promu avec succès!");
                 return;
             }
@@ -72,10 +72,11 @@ public class GestionPersonnel {
     }
 
     public void printLogs() {
-        System.out.println("=== LOGS ===");
-        for (String log : logs) {
-            System.out.println(log);
-        }
+        serviceLogs.printLogs();
+    }
+
+    public List<String> getLogs() {
+        return serviceLogs.getLogs();
     }
 
     public double calculBonusAnnuel(String employeId) {

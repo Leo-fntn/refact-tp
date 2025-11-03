@@ -42,7 +42,7 @@ class GestionPersonnelTest {
 
         // 3000 * 1.2 * 1.15 = 4140
         assertEquals(4140.0, salaireStocke, 0.001);
-        assertTrue(gestion.logs.getFirst().contains("Ajout de l'employé: Alice"));
+        assertTrue(gestion.getLogs().getFirst().contains("Ajout de l'employé: Alice"));
     }
 
     @Test
@@ -200,7 +200,7 @@ class GestionPersonnelTest {
     void testRapportTypeInconnu() {
         gestion.ajouteSalarie("DEVELOPPEUR", "Paul", 2000, 2, "R&D");
         gestion.generationRapport("INCONNU", null);
-        assertTrue(gestion.logs.getLast().contains("Rapport généré: INCONNU"));
+        assertTrue(gestion.getLogs().getLast().contains("Rapport généré: INCONNU"));
     }
 
     // -------------------------------
@@ -217,7 +217,7 @@ class GestionPersonnelTest {
         gestion.avancementEmploye(id, "DEVELOPPEUR");
 
         assertEquals("DEVELOPPEUR", emp.getType());
-        assertTrue(gestion.logs.getLast().contains("Employé promu"));
+        assertTrue(gestion.getLogs().getLast().contains("Employé promu"));
         assertTrue(sortieConsole.toString().contains("Employé promu avec succès!"));
     }
 
