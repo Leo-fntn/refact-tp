@@ -165,23 +165,23 @@ class GestionPersonnelTest {
     void testRapportSalaireFiltre() {
         gestion.ajouteSalarie("DEVELOPPEUR", "Jack", 3000, 4, "Tech");
         gestion.ajouteSalarie("CHEF DE PROJET", "Kevin", 4000, 1, "Tech");
-        gestion.generationRapport("SALAIRE", "Tech");
+        String rapport = gestion.generationRapport("SALAIRE", "Tech");
 
-        String output = sortieConsole.toString();
-        assertTrue(output.contains("=== RAPPORT: SALAIRE ==="));
-        assertTrue(output.contains("Jack:"));
-        assertTrue(output.contains("Kevin:"));
+        double salaireJ = gestion.salairesEmployes.get(gestion.employes.getFirst().getId());
+        double salaireK = gestion.salairesEmployes.get(gestion.employes.get(1).getId());
+
+        String expected = "=== RAPPORT: SALAIRE ===\nJack: "+salaireJ+" €\nKevin: "+salaireK+" €\n";
+
+        assertEquals(expected, rapport);
     }
 
     @Test
     @DisplayName("Rapport EXPERIENCE affiche les années d'expérience")
     void testRapportExperience() {
         gestion.ajouteSalarie("STAGIAIRE", "Laura", 1000, 1, "QA");
-        gestion.generationRapport("EXPERIENCE", "");
-        String output = sortieConsole.toString();
+        String rapport = gestion.generationRapport("EXPERIENCE", "");
 
-        assertTrue(output.contains("=== RAPPORT: EXPERIENCE ==="));
-        assertTrue(output.contains("Laura: 1 années"));
+        assertEquals("=== RAPPORT: EXPERIENCE ===\nLaura: 1 années\n", rapport);
     }
 
     @Test
@@ -190,12 +190,9 @@ class GestionPersonnelTest {
         gestion.ajouteSalarie("DEVELOPPEUR", "Max", 2500, 3, "Backend");
         gestion.ajouteSalarie("CHEF DE PROJET", "Nina", 4500, 5, "Backend");
         gestion.ajouteSalarie("STAGIAIRE", "Oscar", 1000, 1, "Frontend");
-        gestion.generationRapport("DIVISION", null);
+        String rapport = gestion.generationRapport("DIVISION", null);
 
-        String output = sortieConsole.toString();
-        assertTrue(output.contains("=== RAPPORT: DIVISION ==="));
-        assertTrue(output.contains("Backend: 2 employés"));
-        assertTrue(output.contains("Frontend: 1 employés"));
+        assertEquals("=== RAPPORT: DIVISION ===\nBackend: 2 employés\nFrontend: 1 employés\n", rapport);
     }
 
     @Test

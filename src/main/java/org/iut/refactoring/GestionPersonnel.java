@@ -9,6 +9,7 @@ public class GestionPersonnel {
     public HashMap<String, Double> salairesEmployes = new HashMap<>();
     public ArrayList<String> logs = new ArrayList<>();
     private final ServiceSalaire serviceSalaire = new ServiceSalaire();
+    private final ServiceRapport serviceRapport = new ServiceRapport();
 
     public void ajouteSalarie(String type, String nom, double salaireDeBase, int experience, String equipe) {
         Employe emp = new Employe(type, nom, salaireDeBase, experience, equipe);
@@ -38,39 +39,10 @@ public class GestionPersonnel {
         return serviceSalaire.calculerSalaireAvecBonus(emp);
     }
 
-    public void generationRapport(String typeRapport, String filtre) {
-        System.out.println("=== RAPPORT: " + typeRapport + " ===");
-
-        if (typeRapport.equals("SALAIRE")) {
-            for (Employe emp : employes) {
-                if (filtre == null || filtre.isEmpty() ||
-                    emp.getEquipe().equals(filtre)) {
-                    String id = emp.getId();
-                    String nom = emp.getNom();
-                    double salaire = calculSalaire(id);
-                    System.out.println(nom + ": " + salaire + " €");
-                }
-            }
-        } else if (typeRapport.equals("EXPERIENCE")) {
-            for (Employe emp : employes) {
-                if (filtre == null || filtre.isEmpty() ||
-                    emp.getEquipe().equals(filtre)) {
-                    String nom = emp.getNom();
-                    int exp = emp.getExperience();
-                    System.out.println(nom + ": " + exp + " années");
-                }
-            }
-        } else if (typeRapport.equals("DIVISION")) {
-            HashMap<String, Integer> compteurDivisions = new HashMap<>();
-            for (Employe emp : employes) {
-                String div = emp.getEquipe();
-                compteurDivisions.put(div, compteurDivisions.getOrDefault(div, 0) + 1);
-            }
-            for (Map.Entry<String, Integer> entry : compteurDivisions.entrySet()) {
-                System.out.println(entry.getKey() + ": " + entry.getValue() + " employés");
-            }
-        }
+    public String generationRapport(String typeRapport, String filtre) {
+        String rapport = serviceRapport.genererRapport(employes, salairesEmployes, typeRapport, filtre);
         logs.add(LocalDateTime.now() + " - Rapport généré: " + typeRapport);
+        return rapport;
     }
 
     public void avancementEmploye(String employeId, String newType) {
